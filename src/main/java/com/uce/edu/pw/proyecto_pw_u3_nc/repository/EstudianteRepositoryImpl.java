@@ -37,7 +37,20 @@ public class EstudianteRepositoryImpl implements IEstudianteRepository {
 	public void eliminarEstudiante(Integer id) {
 		// TODO Auto-generated method stub
 		this.entityManager.remove(this.consultarEstudiante(id));
-		
+	}
+
+	@Override
+	public Estudiante consultarEstudiantePorNombre(String nombre){
+		TypedQuery<Estudiante> myQuery = this.entityManager.createQuery("SELECT e FROM Estudiante e WHERE e.nombre = :nommbre", Estudiante.class);
+		myQuery.setParameter("nombre", nombre);
+		return myQuery.getSingleResult();
+	}
+
+	@Override
+	public Estudiante consultarEstudiantePorApellido(String apellido){
+		TypedQuery<Estudiante> myQuery = this.entityManager.createQuery("SELECT e FROM Estudiante e WHERE e.apellido = :apellido", Estudiante.class);
+		myQuery.setParameter("apellido", apellido);
+		return myQuery.getSingleResult();
 	}
 
 }

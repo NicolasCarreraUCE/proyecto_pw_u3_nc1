@@ -8,4 +8,7 @@ public interface IEstudainteService {
 	void actualizar(Estudiante estudiante);
 	Estudiante encontrar(Integer id);
 	void borrar(Integer id);
+
+	Estudiante encontrarEstudiantePorNombre(String nombre);
+	Estudiante encontrarEstudiantePorApellido(String apellido);
 }

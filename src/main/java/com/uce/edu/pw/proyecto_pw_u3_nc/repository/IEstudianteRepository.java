@@ -8,4 +8,8 @@ public interface IEstudianteRepository {
 	void actualizarEstudiante(Estudiante estudainte);
 	Estudiante consultarEstudiante(Integer id);
 	void eliminarEstudiante(Integer id);
+
+	Estudiante consultarEstudiantePorNombre(String nombre);
+	Estudiante consultarEstudiantePorApellido(String apellido);
+	
 }

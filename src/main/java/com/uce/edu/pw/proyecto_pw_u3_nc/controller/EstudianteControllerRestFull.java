@@ -33,4 +33,14 @@ public class EstudianteControllerRestFull {
 	public void borrar(Integer id) {
 		// TODO Auto-generated method stub
 	}
+
+	@GetMapping(path = "/buscar/nombre/{nombre}")
+	public Estudiante consultarPorNombre(@PathVariable("nombre") String nombre) {
+		return this.estudainteService.encontrarEstudiantePorNombre(nombre);
+	}
+
+	@GetMapping(path = "/buscar/apellido/{apellido}")
+	public Estudiante consultarPorApellido(@PathVariable("apellido") String apellido) {
+		return this.estudainteService.encontrarEstudiantePorApellido(apellido);
+	}
 }

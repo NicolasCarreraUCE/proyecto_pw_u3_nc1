@@ -36,4 +36,13 @@ public class EstudainteServiceImpl implements IEstudainteService {
 		this.estudianteRepository.eliminarEstudiante(id);
 	}
 
+	@Override
+	public Estudiante encontrarEstudiantePorNombre(String nombre){
+		return this.estudianteRepository.consultarEstudiantePorNombre(nombre);
+	}
+
+	@Override
+	public Estudiante encontrarEstudiantePorApellido(String apellido){
+		return this.estudianteRepository.consultarEstudiantePorApellido(apellido);
+	}
 }

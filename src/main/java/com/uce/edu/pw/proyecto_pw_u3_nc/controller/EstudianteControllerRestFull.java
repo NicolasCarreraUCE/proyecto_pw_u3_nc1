@@ -34,12 +34,12 @@ public class EstudianteControllerRestFull {
 		// TODO Auto-generated method stub
 	}
 
-	@GetMapping(path = "/buscar/nombre/{nombre}")
+	@GetMapping(path = "/nombre/{nombre}")
 	public Estudiante consultarPorNombre(@PathVariable("nombre") String nombre) {
 		return this.estudainteService.encontrarEstudiantePorNombre(nombre);
 	}
 
-	@GetMapping(path = "/buscar/apellido/{apellido}")
+	@GetMapping(path = "/apellido/{apellido}")
 	public Estudiante consultarPorApellido(@PathVariable("apellido") String apellido) {
 		return this.estudainteService.encontrarEstudiantePorApellido(apellido);
 	}

@@ -1,11 +1,15 @@
 package com.uce.edu.pw.proyecto_pw_u3_nc.repository;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.uce.edu.pw.proyecto_pw_u3_nc.modelo.Estudiante;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 
 @Transactional
@@ -40,4 +44,16 @@ public class EstudianteRepositoryImpl implements IEstudianteRepository {
 		
 	}
 
+	@Override
+	public List<Estudiante> buscarTodos(){
+		TypedQuery<Estudiante> myQuery = this.entityManager.createQuery("SELECT e FROM Estudiante e", Estudiante.class);
+		return myQuery.getResultList();
+	}
+
+	@Override
+	public List<Estudiante> buscarTodosPorSalario(BigDecimal salario){
+		TypedQuery<Estudiante> myQuery = this.entityManager.createQuery("SELECT e FROM Estudiante e WHERE e.salario <= :salario", Estudiante.class);
+		myQuery.setParameter("salario", salario);
+		return myQuery.getResultList();
+	}
 }

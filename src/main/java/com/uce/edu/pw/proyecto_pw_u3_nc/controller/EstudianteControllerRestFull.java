@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,24 +35,34 @@ public class EstudianteControllerRestFull {
 		this.estudainteService.registrar(estudiante);
 	}
 
-	@PutMapping(path = "/{id}")
-    public void actualizar(@PathVariable("id") Integer id , @RequestBody Estudiante estudiante) {
-		// TODO Auto-generated method stub
-		this.estudainteService.actualizar(estudiante);
-	}
+//	@PutMapping(path = "/{id}", consumes = (MediaType.APPLICATION_JSON_VALUE))
+//    public void actualizar(@PathVariable("id") Integer id , @RequestBody Estudiante estudiante) {
+//		// TODO Auto-generated method stub
+//		this.estudainteService.actualizar(estudiante);
+//	}
 
-	@PutMapping(path = "/provincia")
+	@PutMapping(path = "/provincia", consumes = (MediaType.APPLICATION_JSON_VALUE))
     public void actualizarProvincia(@RequestBody Estudiante estudiante) {
 		// TODO Auto-generated method stub
 		this.estudainteService.actualizar(estudiante);
 	}
 
+	@PutMapping(path = "/{id}", consumes = (MediaType.APPLICATION_JSON_VALUE), produces = (MediaType.APPLICATION_XML_VALUE))
+    public ResponseEntity<Estudiante> actualizar(@PathVariable("id") Integer id , @RequestBody Estudiante estudiante) {
+		// TODO Auto-generated method stub
+		estudiante.setId(id);
+		this.estudainteService.actualizar(estudiante);
+		Estudiante est = this.estudainteService.encontrar(id);
+		return ResponseEntity.status(HttpStatus.OK).body(est); 
+		
+	}
+	
 	@PutMapping
     public void actualizarTodos(Estudiante estudiante) {
 		// TODO Auto-generated method stub
 	}
 
-    @GetMapping(path = "/{id}")
+    @GetMapping(path = "/{id}", produces = (MediaType.APPLICATION_JSON_VALUE))
 	public ResponseEntity<Estudiante> encontrar(@PathVariable("id") Integer id) {
 		// TODO Auto-generated method stub
     	Estudiante estudiante = this.estudainteService.encontrar(id);

@@ -13,4 +13,6 @@ public interface IEstudianteRepository {
 	void eliminarEstudiante(Integer id);
 	List<Estudiante> buscarTodos();
 	List<Estudiante> buscarTodosPorSalario(BigDecimal salario);
+	
+	
 }

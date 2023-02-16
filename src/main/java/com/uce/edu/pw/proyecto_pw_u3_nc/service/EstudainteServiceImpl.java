@@ -1,13 +1,16 @@
 package com.uce.edu.pw.proyecto_pw_u3_nc.service;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.uce.edu.pw.proyecto_pw_u3_nc.modelo.Estudiante;
 import com.uce.edu.pw.proyecto_pw_u3_nc.repository.IEstudianteRepository;
+import com.uce.edu.pw.proyecto_pw_u3_nc.service.to.EstudianteTo;
 
 @Service
 public class EstudainteServiceImpl implements IEstudainteService {
@@ -49,4 +52,20 @@ public class EstudainteServiceImpl implements IEstudainteService {
 		return this.estudianteRepository.buscarTodosPorSalario(salario);
 	}
 
+	@Override
+	public List<EstudianteTo> encontrarTodosTo() {
+		// TODO Auto-generated method stub
+		List<Estudiante> lista = this.estudianteRepository.buscarTodos();
+		List<EstudianteTo> listaTo = lista.stream().map(estudiante -> this.convertir(estudiante)).collect(Collectors.toList()); 
+		return listaTo;
+	}
+
+	private EstudianteTo convertir(Estudiante estudiante) {
+		EstudianteTo estu = new EstudianteTo();
+		estu.setId(estudiante.getId());
+		estu.setNombre(estudiante.getNombre());
+		estu.setApellido(estudiante.getApellido());
+		estu.setFechaNacimiento(estudiante.getFechaNacimiento());
+		return estu;
+	}
 }

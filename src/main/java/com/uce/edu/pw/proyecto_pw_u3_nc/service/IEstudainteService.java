@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import com.uce.edu.pw.proyecto_pw_u3_nc.modelo.Estudiante;
+import com.uce.edu.pw.proyecto_pw_u3_nc.service.to.EstudianteTo;
 
 public interface IEstudainteService {
 
@@ -13,4 +14,7 @@ public interface IEstudainteService {
 	void borrar(Integer id);
 	List<Estudiante> encontrarTodos();
 	List<Estudiante> encontrarTodosPorSalario(BigDecimal salario);
+	
+	List<EstudianteTo> encontrarTodosTo();
+	
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.uce.edu.pw.proyecto_pw_u3_nc.modelo.Estudiante;
 import com.uce.edu.pw.proyecto_pw_u3_nc.repository.IEstudianteRepository;
+import com.uce.edu.pw.proyecto_pw_u3_nc.service.to.EstudianteNuevoTo;
 import com.uce.edu.pw.proyecto_pw_u3_nc.service.to.EstudianteTo;
 
 @Service
@@ -66,6 +67,13 @@ public class EstudainteServiceImpl implements IEstudainteService {
 		estu.setNombre(estudiante.getNombre());
 		estu.setApellido(estudiante.getApellido());
 		estu.setFechaNacimiento(estudiante.getFechaNacimiento());
+		return estu;
+	}
+	
+	private EstudianteNuevoTo convertirNuevo(Estudiante estudiante) {
+		EstudianteNuevoTo estu = new EstudianteNuevoTo();
+		estu.setNombre(estudiante.getNombre());
+		estu.setApellido(estudiante.getApellido());
 		return estu;
 	}
 }

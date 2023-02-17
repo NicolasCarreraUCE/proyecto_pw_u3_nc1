@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.uce.edu.pw.proyecto_pw_u3_nc.modelo.Estudiante;
 import com.uce.edu.pw.proyecto_pw_u3_nc.service.IEstudainteService;
+import com.uce.edu.pw.proyecto_pw_u3_nc.service.IMateriaService;
 import com.uce.edu.pw.proyecto_pw_u3_nc.service.to.EstudianteTo;
 import com.uce.edu.pw.proyecto_pw_u3_nc.service.to.MateriaTo;
 
@@ -36,6 +37,9 @@ public class EstudianteControllerRestFull {
     @Autowired
     private IEstudainteService estudainteService;
 	
+    @Autowired
+    private IMateriaService materiaService;
+    
 	@PostMapping
     public void registrar(@RequestBody Estudiante estudiante) {
 		// TODO Auto-generated method stub
@@ -123,13 +127,32 @@ public class EstudianteControllerRestFull {
 		List<EstudianteTo> lista = this.estudainteService.encontrarTodosTo();
 		for(EstudianteTo estu: lista) {
 			Link myLink = linkTo(methodOn(EstudianteControllerRestFull.class).buscarMaterias(estu.getId())).withRel("materias");
+			Link myLink2 = linkTo(methodOn(EstudianteControllerRestFull.class).encontrar(estu.getId())).withSelfRel();
+			Link myLink3 = linkTo(EstudianteControllerRestFull.class).slash("prueba").slash("estudainte").slash(estu.getId()).slash("final").withRel("enlacePrueba");
+					
 			estu.add(myLink);
+			estu.add(myLink2);
+			estu.add(myLink3);
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(lista);
 	}
 	
-	@GetMapping(path = "/{idEstudainte}/materias")
+	@GetMapping(path = "/{idEstudainte}/materias", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<MateriaTo> buscarMaterias(@PathVariable("idEstudainte") Integer idEsInteger) {
-		return null;
+		List<MateriaTo> lista = this.materiaService.buscarProEstudiante(idEsInteger);
+		for(MateriaTo mate: lista) {
+			Link myLink = linkTo(methodOn(EstudianteControllerRestFull.class).encontrar(mate.getId())).withSelfRel();
+			mate.add(myLink);
+		}
+		return lista;
+	}
+	
+	@GetMapping(path = "materia/{id}", produces = (MediaType.APPLICATION_JSON_VALUE))
+	public ResponseEntity<MateriaTo> encontrarMateria(@PathVariable("id") Integer id) {
+		// TODO Auto-generated method stub
+    	MateriaTo materiaTo = this.materiaService.encontrar(id);
+    	return ResponseEntity.status(HttpStatus.OK).body(materiaTo); 
+
 	}
 }
+
